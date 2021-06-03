@@ -46,11 +46,10 @@
                     @foreach ($users as $item)
                         <tr>
                             <td >
-                                <div class="customs-img">
-                                    @if ($item['profile_photo_path'])
-                                    <div class="profile-img" style="background-image:url({{asset('storage/'.$item['profile_photo_path'])}}); "></div>
-                                    @endif
-                                </div>
+                              <img src="{{$item['image'] }}"
+                              {{-- {{dd($item['image'])}} --}}
+                              alt="image"
+                              style="max-width: 150px">
                             </td>
                             <td>{{ $item['name']}}</td>
                             <td>{{ $item['email']}}</td>

@@ -21,9 +21,8 @@ class UserRepository
         $users->name = $request['name'];
         // $users->email = $request['email'];
         if($request->hasFile('image')){
-            $image = $request->image;
-            $path = $image->store('images','public');
-            $users->profile_photo_path = $path;
+            $image = base64_encode(file_get_contents($request->file("image")));
+            $users['image'] = "data:image/jpg;base64," . $image;
         }
         $users->update();
     }

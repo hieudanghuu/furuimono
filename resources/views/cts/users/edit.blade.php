@@ -1,12 +1,12 @@
-@extends('dashboards.layouts.app')
+@extends('cts.layouts.app')
 
-@section('title','EditUser')
+@section('title','Sửa Avatar')
 
 @section('content')
 <div class="container" style="width:100% ;margin-top: 100px;">
-    <form action="{{ route('dashboard.user.update',$user['id']) }}" method="post" enctype="multipart/form-data" >
+    <form action="{{ route('cts.user.update',$user['id']) }}" method="post" enctype="multipart/form-data" >
         @csrf
-        <div>
+        {{-- <div>
             <label for="">Avata</label><br>
             <label for="image">
                 @if (isset($user['profile_photo_path']))
@@ -16,6 +16,25 @@
             <label for="image" class="btn btn-default btn-sm">change image</label>
             <span id="text_image"></span>
             <input accept=".jpg, .jpeg, .png" type="file" style="visibility:hidden;" class="form-control" id="image" onchange="change(this.value)" name="image">
+        </div> --}}
+        <div class="form-group col-12">
+            <label for="exampleInputFile">File input</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="inputFile">Choose file</label>
+                    <input type="file" name="image"
+                           class="custom-file-input @error('image') is-invalid @enderror"
+                           id="inputFile" value="{{$user['image']}}">
+                </div>
+            </div>
+            @error('image')
+            <p class="text-danger">{{ $errors->first('image') }}</p>
+            @enderror
+            <div class="mt-2">
+                @if (!empty($user['image']))
+                    <img class="w-25 img" src="{{$user['image']}}" alt="">
+                @endif
+            </div>
         </div>
         <div>
             <label for="">Name</label>
@@ -32,10 +51,23 @@
     </form>
 </div>
 <script>
-    function change(value){
-        document.getElementById('img').style.display = 'none';
-        document.getElementById('text_image').innerHTML = value;
-    }
-  
+    // function change(value){
+    //     document.getElementById('img').style.display = 'none';
+    //     document.getElementById('text_image').innerHTML = value;
+    // }
+    $('#inputFile').on('change', function () {
+            if (typeof (FileReader) != "undefined") {
+                var image_holder = $(".img");
+                image_holder.empty();
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.img').attr('src', e.target.result);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        })
 </script>
 @endsection
