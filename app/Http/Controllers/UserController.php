@@ -11,7 +11,7 @@ use App\Http\Requests\UserRequest;
 // use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepository;
 
-class Usercontroller extends Controller
+class UserController extends Controller
 {
 
     protected $users;
