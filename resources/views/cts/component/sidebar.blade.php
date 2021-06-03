@@ -31,7 +31,17 @@
             <p>Đơn Hàng</p>
           </a>
         </li>
-        
+        <li class="nav-item ">
+          <form method="POST" style="    padding: 16px 0;" action="{{ route('logout') }}">
+            @csrf
+            <x-jet-dropdown-link style="font-size: 14px; margin:7px" href="{{ route('logout') }}"
+                     onclick="event.preventDefault();
+                            this.closest('form').submit();">
+              Đăng Xuất
+            </x-jet-dropdown-link>
+        </form>
+          
+        </li>
       </ul>
     </div>
   </div>

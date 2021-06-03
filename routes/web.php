@@ -15,17 +15,14 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::prefix("cts")->group(function(){
 
-    Route::get('/home',[HomeController::class,'index'])->name('cts.home');
+Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () {
+
+    Route::get('dashboards',function(){
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('',[HomeController::class,'index'])->name('cts.home');
     Route::resource('/products', ProductController::class);
+    
 });
-
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
