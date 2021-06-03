@@ -5,22 +5,27 @@
       </a>
     </div>
     <div class="sidebar-wrapper">
+      <?php
+        if (\Request::route()->getName()) {
+          $pageName = \Request::route()->getName();
+        }
+      ?>
       <ul class="nav">
-        <li class="nav-item active  ">
+        <li class="nav-item {{ strlen(strstr($pageName, 'home')) > 0 ?'active':''}}  ">
           <a class="nav-link" href="{{route('cts.home')}}">
             <i class="material-icons"></i>
             <p>Trang Chủ</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="#">
+        <li class="nav-item {{ strlen(strstr($pageName, 'user')) > 0 ?'active':''}} ">
+          <a class="nav-link" href="{{route('cts.user.list')}}">
             <i class="material-icons"></i>
             <p>Thành Viên</p>
           </a>
 
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="#">
+        <li class="nav-item {{ strlen(strstr($pageName, 'product')) > 0 ?'active':''}}">
+          <a class="nav-link" href="{{route('cts.product.list')}}">
             <i class="material-icons"></i>
             <p>Kho Hàng</p>
           </a>

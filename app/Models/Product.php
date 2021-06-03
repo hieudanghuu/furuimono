@@ -12,14 +12,13 @@ class Product extends Model
     use SoftDeletes;
     protected $fillable = ['name','price','active','user_id','discription','image'];
 
-    public function category(){
-        return $this->belongsTo('App\Models\Category');
-    }
 
     public function orders(){
         return $this->hasMany('App\Models\Order');
     }
-
+    public function user(){
+        return $this->belongsTo('App\Models\user');
+    }
     public function picture(){
         return $this->hasMany('App\Models\Picture');
     }
