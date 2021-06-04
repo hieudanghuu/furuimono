@@ -15,8 +15,7 @@
                   <i class="far fa-user"></i>
                 </div>
                 <p class="card-category">Thành Viên</p>
-                <h3 class="card-title">49/50
-                  <small>GB</small>
+                <h3 class="card-title">{{$sumUser}}
                 </h3>
               </div>
               <div class="card-footer">
@@ -31,7 +30,7 @@
                   <i class="material-icons">store</i>
                 </div>
                 <p class="card-category">Kho</p>
-                <h3 class="card-title">$34,245</h3>
+                <h3 class="card-title">{{$sumProduct}}</h3>
               </div>
               <div class="card-footer">
                
@@ -45,7 +44,7 @@
                   <i class="fas fa-yen-sign"></i>
                 </div>
                 <p class="card-category">Thu Nhập</p>
-                <h3 class="card-title">75</h3>
+                <h3 class="card-title"></h3>
               </div>
               <div class="card-footer">
            
@@ -59,7 +58,7 @@
                   <i class="fal fa-shopping-cart"></i>
                 </div>
                 <p class="card-category">Đơn Hàng</p>
-                <h3 class="card-title">+245</h3>
+                <h3 class="card-title">{{$sumOrder}}</h3>
               </div>
               <div class="card-footer">
               </div>

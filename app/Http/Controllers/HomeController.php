@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Order;
+use App\Models\User;
 
 class HomeController extends Controller
 {
+    protected $users;
+    protected $products;
+    protected $orders;
+    function __construct()
+    {
+        $this->users = new User();
+        $this->products = new Product();
+        $this->orders = new Order();
+    }
     public function index()
     {
-        return view("cts.home");
+        $sumUser = $this->users->count();
+        $sumProduct = $this->products->where('active',1)->count();
+        $sumOrder = $this->orders->count();
+        return view("cts.home",compact('sumUser','sumProduct','sumOrder'));
     }
 }
