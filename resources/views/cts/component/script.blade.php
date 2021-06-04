@@ -68,7 +68,20 @@
           }
 
         }
-
+        $('#inputFile').on('change', function () {
+        if (typeof (FileReader) != "undefined") {
+            var image_holder = $(".img");
+            image_holder.empty();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.img').attr('src', e.target.result);
+            }
+            image_holder.show();
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            alert("This browser does not support FileReader.");
+        }
+    })
         $('.fixed-plugin a').click(function(event) {
           // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
           if ($(this).hasClass('switch-trigger')) {

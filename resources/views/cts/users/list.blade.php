@@ -1,6 +1,6 @@
 @extends('cts.layouts.app')
 
-@section('title','User')
+@section('title','Thành Viên')
 
 @section('content')
 <style>
@@ -35,8 +35,8 @@
               <table class="table">
                 <thead class=" text-primary">
                     <tr>
-                        <th>Ảnh Đại Diện</th>
-                        <th>Tên Thành Viên</th>
+                        <th></th>
+                        <th>Tên</th>
                         <th>Email</th>
                         <th></th>
                     </tr>
@@ -46,17 +46,18 @@
                     @foreach ($users as $item)
                         <tr>
                             <td >
-                              <img src="{{$item['image'] }}"
-                              {{-- {{dd($item['image'])}} --}}
-                              alt="image"
-                              style="max-width: 150px">
+                              <div>
+                                <img src="{{$item['image'] }}"
+                                alt="image"
+                                style="max-width: 50px">
+                              </div>
+                             
                             </td>
                             <td>{{ $item['name']}}</td>
                             <td>{{ $item['email']}}</td>
                             <td>
                             <a href="{{route('cts.user.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" class="mr-2"><i class="far fa-trash-alt "></i></a>
                                 <a href="{{ route('cts.user.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
-                                {{-- <a href="#" class="mr-2"><i class="far fa-eye"></i></a> --}}
                             </td>
                         </tr>
                     @endforeach
