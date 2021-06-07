@@ -1,6 +1,6 @@
-@extends('dashboards.layouts.app')
+@extends('cts.layouts.app')
 
-@section('title','ViewProduct')
+@section('title','Chi Tiết')
 
 @section('content')
 <div class="container row" style="width:100% ;margin-top: 100px;">
@@ -10,7 +10,7 @@
            
             <label for="image text-center">
                 @if (isset($product['image']))
-                <img id="img"  src="{{asset('/storage/'.$product['image'])}}" style="width:410px;margin-left: -4px;" alt="No Vailable">
+                <img id="img"  src="{{$product['image']}}" style="width:410px;margin-left: -4px;" alt="No Vailable">
                 @endif
             </label><br>  
             {{-- {{dd($product->picture)}} --}}
@@ -18,7 +18,7 @@
             <div class="d-flex justify-content-center">
                 @foreach ($product->picture as $key => $item)
                     <label >
-                        <img class="img_custom" id="img{{$item['id']}}" src="{{asset('/storage/'.$item['image'])}}" width="100px" alt="product_image">
+                        <img class="img_custom" id="img{{$item['id']}}" src="{{$item['image']}}" width="100px" alt="product_image">
                         <label for="" id="text_image{{$item['id']}}"></label>
                     </label>
                 @endforeach
@@ -28,32 +28,28 @@
     </div>
     <div class="col-6">
         <div>
-            <label for="">Name</label>
+            <label for="">Tên Sản Phẩm</label>
             <label type="text" class="form-control">{{ $product['name'] }}</label>
         </div>
         <div>
-            <label for="">Price</label>
+            <label for="">Gía</label>
             <label type="text" class="form-control">{{ $product['price'] }}</label>
         </div>
         <div>
-            <label for="">Product_Code</label>
-            <label type="text" class="form-control">{{ $product['product_code'] }}</label>
+            <label for="">Tình Trạng (%)</label>
+            <label type="text" class="form-control">{{ $product['status'] }}</label>
         </div>
         <div>
-            <label for="">Quanty</label>
-            <label type="text" class="form-control">{{ $product['quanty'] }}</label>
-        </div>
-        <div>
-            <label for="">Sale</label>
-            <label type="text" class="form-control">{{ $product['sale'] }} %</label>
+            <label for="">Mô Tả</label>
+            <label type="text" class="form-control">{{ $product['discription'] }}</label>
         </div>
         <div  class="form-group">
-            <label for="">Category</label><br>
-            <label type="text" class="form-control">
-                @foreach ($categories as $item)
-                {{$product['category_id'] == $item['id']?$item['name']:null}}
+            <label for="">Người Tạo</label><br>
+            <select class="form-control"  name="user_id" >
+                @foreach ($users as $item)
+                <option value="{{ $item['id']}}" {{$product->user['name'] == $item['id']?'selected':''}}>{{ $product->user['name']}}</option>
                 @endforeach
-            </label>
+            </select>
         </div>
         <a href="javascript:history.go(-1)" class="btn btn-default">Back</a>
     </div>

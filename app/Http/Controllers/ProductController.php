@@ -72,6 +72,7 @@ class ProductController extends Controller
         return view('cts.products.view',
             with([
                     'product' => $this->products->findOrFail($id),
+                    'users' => $this->users->all(),
                 ])
         );
     }
@@ -88,18 +89,26 @@ class ProductController extends Controller
         return view('cts.products.edit_image',with(['product' => $this->products->findOrFail($id)]));
     }
 
-    public function imageUpdate(Request $request,$id)
+    public function imageUpdate(Request $request)
     {
-        $this->productRepository->upImage($request,$id);
+        $this->productRepository->upImage($request);
         Session::flash('success', 'update success');
         return redirect()->back();
     }
     public function imageDelete(Request $request)
     {
         // dd($request);
+        // dd()
         $this->productRepository->imageDelete($request);
         Session::flash('success', 'delete success');
         return redirect()->route('cts.product.image',$request->product_id);
+    }
+
+    public function deleteMutilImage($id){
+        // dd($arr);
+        $image = $this->images->findOrFail($id);
+        $image->delete();
+        return redirect()->back();
     }
 
     public function imageCreate($id_product)
@@ -112,5 +121,10 @@ class ProductController extends Controller
         $this->productRepository->imageStore($request);
         Session::flash('success', 'create success');
         return redirect()->route('cts.product.image',$request['id_product']);
+    }
+    public function deleteAllImage($id){
+        $this->productRepository->deleteAllImage($id);
+
+        return back();
     }
 }

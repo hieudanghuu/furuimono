@@ -1,6 +1,6 @@
-@extends('dashboards.layouts.app')
+@extends('cts.layouts.app')
 
-@section('title','EditProduct_image')
+@section('title','Sửa Ảnh Sản Phẩm')
 
 @section('content')
 <style>
@@ -23,52 +23,25 @@
     }
 </style>
 <div class="container" style="width:100% ;margin-top: 100px;">
-    <a href="{{route('dashboard.product.image.create',$product['id'])}}" class="btn btn-success">Create Secondary Photo</a> <br>
+    <a href="{{route('cts.product.image.create',$product['id'])}}" class="btn btn-success">Tạo Ảnh Phụ</a>
+     <br>
     @if (count($product->picture) > 0)
+    <a href="{{route('cts.product.image.deleteAllImage',$product['id'])}}" class="btn btn-danger">Xóa Hết Ảnh</a>
         @foreach ($product->picture as $key => $item)
-            <form class="mt-3" action="{{ route('dashboard.product.image.update',$item['id']) }}"  method="post" enctype="multipart/form-data" >
-                @csrf
-                <div class="row">  
-                    <div class="col-2">
-                        <label for="image{{$item['id']}}">
-                            <img class="img_custom" id="img{{$item['id']}}" src="{{asset('/storage/'.$item['image'])}}" width="100%" alt="product_image">
-                            <label for="" id="text_image{{$item['id']}}"></label>
-                        </label>
-                        {{-- {{  $serializeArray = [$product['id'],$item['id']]  }}  --}}
-                        {{-- {{dd([$product['id'],$item['id'] ])}} --}}
-                        <input accept=".jpg, .jpeg, .png" type="file" hidden class="form-control" id="image{{$item['id']}}" onchange="change(this.value,{{$item['id']}})" name="images{{$item['id']}}">
-                        <a data-toggle="modal" data-target="#exampleModal{{$item['id']}}"   class="btn btn-default btn-close-img">X</a>
-                        <div class="modal fade" id="exampleModal{{$item['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="{{route('dashboard.product.image.delete')}}" method="post">
-                                        @csrf
-                                        <input type="text" hidden name="id" value="{{$item['id']}}">
-                                        <input type="text" hidden  name="product_id" value="{{$product['id']}}">
-                                        <button type="submit"  class="btn btn-primary">OK</button>
-                                    </form>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary button_img {{$item['id']}}" id="edit{{$item['id']}}" ><i class="far fa-edit"></i></button>
-                    </div>
+            <div class="row">  
+                <div class="col-4">
+                    <label for="image{{$item['id']}}">
+                        <img class="img_custom" id="img{{$item['id']}}" src="{{$item['image']}}" width="100%" alt="product_image">
+                        <label for="" id="text_image{{$item['id']}}"></label>
+                    </label>
+                    <a  href="{{route('cts.product.image.destroy',$item['id'])}}" class="btn btn-default btn-close-img">X</a>
                 </div>
-            </form>
+            </div>
         @endforeach
     @else
-    <p class="text-danger text-center"> No Data</p>
+    <p class="text-danger text-center">Không có dữ liệu</p>
     @endif
-    
-    <a href="{{route('dashboard.product.list')}}" class="btn btn-default">Back</a>
+    <a href="{{route('cts.product.list')}}" class="btn btn-default">Trở Lại</a>
 </div>
 <script>
     function change(value,id){  

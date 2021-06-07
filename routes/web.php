@@ -47,10 +47,16 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () 
 
 
         Route::get('/{id}/image',[ProductController::class,'image'])->name('cts.product.image');
-        // Route::post('/{id}/image/update',[ProductController::class,'imageUpdate'])->name('dashboard.product.image.update');
-        // Route::post('/image/delete',[ProductController::class,'deleteImage'])->name('dashboard.product.image.delete');
-        // Route::get('/{id_product}/image/create',[ProductController::class,'imageCreate'])->name('dashboard.product.image.create');
-        // Route::post('/image/store',[ProductController::class,'imageStore'])->name('dashboard.product.image.store');
+        Route::post('/image/update',function(){
+            return "aaaaaaa";
+        })->name('cts.product.image.update');
+        Route::post('/image/delete',[ProductController::class,'imageDelete'])->name('cts.product.image.delete');
+
+        Route::get('/{id}/image/destroy',[ProductController::class,'deleteMutilImage'])->name('cts.product.image.destroy');
+
+        Route::get('/{id}/image/delete',[ProductController::class,'deleteAllImage'])->name('cts.product.image.deleteAllImage');
+        Route::get('/{id_product}/image/create',[ProductController::class,'imageCreate'])->name('cts.product.image.create');
+        Route::post('/image/store',[ProductController::class,'imageStore'])->name('cts.product.image.store');
     }); 
     
 });

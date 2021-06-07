@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger("price");
             $table->longText("discription");
             $table->integer("active")->default(1);
+            $table->integer('status');
             $table->longText("image")->nullable();
             $table->foreignId("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->softDeletes();

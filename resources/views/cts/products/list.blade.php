@@ -27,7 +27,7 @@
                     <th></th>
                     <th>Người Tạo</th>
                     <th>Tên Sản Phẩm</th>
-                    <th></th>
+                    <th>Tình Trạng</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -38,7 +38,7 @@
                                 <td >
                                     <div class="customs-img">
                                         @if ($item['image'])
-                                        <a href="{{asset('storage/'.$item['image'])}}"><img src="{{asset('storage/'.$item['image'])}}" width="100px" alt="image_product"></a>
+                                        <a href="#"><img src="{{$item['image'] }}" width="100px" alt="image_product"></a>
                                         {{-- <img src="{{asset('storage/'.$item['image'])}}" width="100px" alt="image_product"> --}}
                                         {{-- <div class="profile-img" style="background-image:url({{asset('storage/'.$item['image'])}}); "></div> --}}
                                         @endif
@@ -46,18 +46,19 @@
                                 </td>
                                 <td>{{$item->user['name']}}</td>
                                 <td>{{ $item['name']}}</td>
+                                <td>{{$item['status']}} %</td>
 
                                 <td>
-                                    @if ($item['active'] == 1)
+                                    {{-- @if ($item['active'] == 1)
                                     <a href="" class="btn btn-success btn-sm">còn hàng</a>
                                     @else
                                     <a href="" class="btn btn-danger btn-sm">đã bán</a>
                                     @endif
-                                <td>
-                                    <a  rel="tooltip" title="Remove" class=" btn-link btn-sm" href="{{ route('cts.product.delete',$item['id'])}}"  onclick="return confirm('Are you sure?')" ><i class="far fa-trash-alt "></i></a>
-                                    <a href="{{ route('cts.product.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
-                                    <a href="{{ route('cts.product.view', $item['id']) }}" class="mr-2"><i class="far fa-eye"></i></a>
-                                    <a href="{{ route('cts.product.image', $item['id'])}}" class="mr-2"><i class="far fa-images"></i></a>
+                                <td> --}}
+                                    <a  rel="tooltip" title="Xóa" class=" btn-link btn-sm" href="{{ route('cts.product.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" ><i class="far fa-trash-alt "></i></a>
+                                    <a rel="tooltip" title="Sửa" href="{{ route('cts.product.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
+                                    <a rel="tooltip" title="Xem" href="{{ route('cts.product.view', $item['id']) }}" class="mr-2"><i class="far fa-eye"></i></a>
+                                    <a rel="tooltip" title="Xem Ảnh" href="{{ route('cts.product.image', $item['id'])}}" class="mr-2"><i class="far fa-images"></i></a>
                                 </td>
                             </tr>
                         @endforeach
