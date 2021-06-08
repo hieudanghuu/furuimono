@@ -3,6 +3,7 @@
 @section('title','Sản Phẩm')
 
 @section('content')
+
 <div class="container" style="width:100% ;margin-top: 70px;">
     <div class="d-flex justify-content-between">
         <a href="{{route('cts.product.create')}}" class="btn btn-round btn-fill btn-info ml-3 h-100 ">Tạo Sản Phẩm</a>
@@ -29,6 +30,7 @@
                     <th>Tên Sản Phẩm</th>
                     <th>Tình Trạng</th>
                     <th></th>
+                    <th></th>
                 </thead>
                 <tbody>
                     @if (count($products) > 0) 
@@ -47,9 +49,17 @@
                                 <td>{{$item->user['name']}}</td>
                                 <td>{{ $item['name']}}</td>
                                 <td>{{$item['status']}} %</td>
+                                <td>
+                                    @if ($item['active'] != App\Models\Product::PRODUCT_ACTIVE)
+                                    <span class="btn btn-warning btn-sm">đã vào đơn</span>   
+                                    @else
+                                    <a href="{{route('order.create', $item['id'])}}" class="btn btn-success btn-sm ">Tạo Đơn Hàng</a> 
+                                    @endif
+                                </td>
+
 
                                 <td>
-                                    <a href="{{route('order.create')}}" class="btn btn-success btn-sm ">Tạo Đơn Hàng</a>
+                                    
                                     <a  rel="tooltip" title="Xóa" class=" btn-link btn-sm" href="{{ route('cts.product.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" ><i class="far fa-trash-alt "></i></a>
                                     <a rel="tooltip" title="Sửa" href="{{ route('cts.product.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
                                     <a rel="tooltip" title="Xem" href="{{ route('cts.product.view', $item['id']) }}" class="mr-2"><i class="far fa-eye"></i></a>
@@ -73,6 +83,5 @@
         {{ $products->links() }}
     </div>
 </div>
-
 @endsection
     

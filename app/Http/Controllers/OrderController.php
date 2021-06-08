@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Repositories\Order\OrderRepository;
 use App\Http\Requests\OrderRequest;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
+
 
 class OrderController extends Controller
 {
@@ -14,12 +17,14 @@ class OrderController extends Controller
     protected $orders;
     protected $orderRepository;
     protected $products;
+    protected $users;
     
     function __construct( OrderRepository $orderRepository)
     {
         $this->orderRepository = $orderRepository;
         $this->orders = new Order();
         $this->products = new Product();
+        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -42,9 +47,13 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view("cts.orders.create")->with(["products" => $this->products->where('active',Product::PRODUCT_ACTIVE)->get()]);
+        return view("cts.orders.create")->with([
+            "products" => $this->products->where('active',Product::PRODUCT_ACTIVE)->get(),
+            'product' => $this->products->findOrFail($id),
+            'users' => $this->users->all(),
+            ]);
     }
 
     /**
@@ -53,9 +62,11 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        //
+        $this->orderRepository->store($request);
+        Session::flash('success', 'create success');
+        return redirect()->route('order.list');
     }
 
     /**

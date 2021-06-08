@@ -29,7 +29,6 @@ class ProductRepository
             'user_id' =>Auth::user()->id,
        
         ]);
-
         // dd($products);
         if($request->hasFile('image') ){    
             $image = base64_encode(file_get_contents($request->file("image")));

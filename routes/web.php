@@ -57,7 +57,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () 
 
     Route::prefix("order")->group(function(){
         Route::get("/list",[OrderController::class,"index"])->name("order.list");
-        Route::get('/create',[OrderController::class,'create'])->name('order.create');
+        Route::get('/{id}/create',[OrderController::class,'create'])->name('order.create');
         Route::post('/store',[OrderController::class,'store'])->name('order.store');
         Route::get('/{id}/edit',[OrderController::class,'edit'])->name('order.edit');
         Route::post('/{id}/update',[OrderController::class,'update'])->name('order.update');

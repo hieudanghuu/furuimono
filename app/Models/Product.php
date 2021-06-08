@@ -15,6 +15,8 @@ class Product extends Model
 
     const PRODUCT_ACTIVE = 1;
     const PRODUCT_UNACTIVE = 0;
+    const SOLD = 0;
+    const NOT_SOLD = 1;
 
     public function product(){
         return $this->belongsToMany(Order::class,"order_products","product_id","order_id");

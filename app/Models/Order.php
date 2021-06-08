@@ -11,7 +11,7 @@ class Order extends Model
 
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ["name","address","phone","note","status","user_id","product_id"];
+    protected $fillable = ["name","address","phone","note","status","user_id","product_id","total"];
 
     const ORDER_ACTIVE = 1;
     const ORDER_UNACTIVE = 0;
@@ -21,6 +21,6 @@ class Order extends Model
     }
 
     public function product(){
-        return $this->belongsToMany(Product::class,"order_products","order_id","product_id");
+        return $this->belongsToMany("App\Models\Product","order_products","order_id","product_id");
     }
 }

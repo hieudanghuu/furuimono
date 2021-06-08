@@ -27,6 +27,7 @@
                     <th>Tên Sản Phẩm</th>
                     <th>Người Tạo</th>
                     <th>Tên Người Nhận</th>
+                    <th></th>          
                     <th></th>
                 </thead>
                 <tbody>
@@ -35,9 +36,11 @@
                             <tr>
                                 <td >{{ $key += 1 }}</td>
                                 <td>
+                                    {{-- {{dd($item->product)}} --}}
                                     @foreach ($item->product as $product)
+                               
                                     <div>
-                                        <p> {{$product['name']}}</p>
+                                        <p style="margin:0"> {{$product['name']}}</p>
                                     </div>
                                     @endforeach
                                 </td>
@@ -54,7 +57,7 @@
                                     <a  rel="tooltip" title="Xóa" class=" btn-link btn-sm" href="{{ route('order.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" ><i class="far fa-trash-alt "></i></a>
                                     <a rel="tooltip" title="Sửa" href="{{ route('order.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
                                     <a rel="tooltip" title="Xem" href="{{ route('order.view', $item['id']) }}" class="mr-2"><i class="far fa-eye"></i></a>
-                                    <a rel="tooltip" title="Xem Ảnh" href="{{ route('order.image', $item['id'])}}" class="mr-2"><i class="far fa-images"></i></a>
+                                    {{-- <a rel="tooltip" title="Xem Ảnh" href="{{ route('order.image', $item['id'])}}" class="mr-2"><i class="far fa-images"></i></a> --}}
                                 </td>
                             </tr>
                         @endforeach
