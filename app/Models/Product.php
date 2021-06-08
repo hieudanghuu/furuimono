@@ -13,8 +13,11 @@ class Product extends Model
     protected $fillable = ['name','price','active','user_id','discription','image','status'];
 
 
-    public function orders(){
-        return $this->hasMany('App\Models\Order');
+    const PRODUCT_ACTIVE = 1;
+    const PRODUCT_UNACTIVE = 0;
+
+    public function product(){
+        return $this->belongsToMany(Order::class,"order_products","product_id","order_id");
     }
     public function user(){
         return $this->belongsTo('App\Models\user');

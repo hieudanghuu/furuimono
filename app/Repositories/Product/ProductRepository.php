@@ -90,16 +90,6 @@ class ProductRepository
 
     public function upImage($request)
     {
-        
-        // $id = $request['id'];
-        // dd(is_string($id));
-        // $images = $this->images->findOrFail($id);
-        // if($request->hasFile("images" + $id)){
-        //     $image = base64_encode(file_get_contents($request["images" + $id]));
-        //     $images['image'] = "data:image/jpg;base64," . $image;  
-        // }
-        // $images->save();
-        dd($request);
         if( $request->hasFile('images')){
             foreach($request->images as $item){
                 $image = base64_encode(file_get_contents($request->file("image")));

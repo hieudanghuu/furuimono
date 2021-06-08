@@ -30,8 +30,8 @@
             <p>Kho Hàng</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="#">
+        <li class="nav-item {{ strlen(strstr($pageName, 'order')) > 0 ?'active':''}} ">
+          <a class="nav-link" href="{{route('order.list')}}">
             <i class="fab fa-first-order-alt"></i>
             <p>Đơn Hàng</p>
           </a>

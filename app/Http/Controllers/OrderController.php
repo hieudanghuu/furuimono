@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Repositories\Order\OrderRepository;
+use App\Http\Requests\OrderRequest;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
+
+    protected $orders;
+    protected $orderRepository;
+    protected $products;
+    
+    function __construct( OrderRepository $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+        $this->orders = new Order();
+        $this->products = new Product();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view("cts.orders.list")->with(["orders" => $this->orders->paginate(10)]);
+    }
+
+    public function setStatusOrder($id)
+    {
+        $this->orders->setStatus($id);
+        return redirect()->back();
     }
 
     /**
@@ -24,7 +44,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view("cts.orders.create")->with(["products" => $this->products->where('active',Product::PRODUCT_ACTIVE)->get()]);
     }
 
     /**

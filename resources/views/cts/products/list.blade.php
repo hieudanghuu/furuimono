@@ -49,12 +49,7 @@
                                 <td>{{$item['status']}} %</td>
 
                                 <td>
-                                    {{-- @if ($item['active'] == 1)
-                                    <a href="" class="btn btn-success btn-sm">còn hàng</a>
-                                    @else
-                                    <a href="" class="btn btn-danger btn-sm">đã bán</a>
-                                    @endif
-                                <td> --}}
+                                    <a href="{{route('order.create')}}" class="btn btn-success btn-sm ">Tạo Đơn Hàng</a>
                                     <a  rel="tooltip" title="Xóa" class=" btn-link btn-sm" href="{{ route('cts.product.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" ><i class="far fa-trash-alt "></i></a>
                                     <a rel="tooltip" title="Sửa" href="{{ route('cts.product.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
                                     <a rel="tooltip" title="Xem" href="{{ route('cts.product.view', $item['id']) }}" class="mr-2"><i class="far fa-eye"></i></a>

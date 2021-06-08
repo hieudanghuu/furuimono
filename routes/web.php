@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -47,16 +48,25 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () 
 
 
         Route::get('/{id}/image',[ProductController::class,'image'])->name('cts.product.image');
-        Route::post('/image/update',function(){
-            return "aaaaaaa";
-        })->name('cts.product.image.update');
         Route::post('/image/delete',[ProductController::class,'imageDelete'])->name('cts.product.image.delete');
-
         Route::get('/{id}/image/destroy',[ProductController::class,'deleteMutilImage'])->name('cts.product.image.destroy');
-
         Route::get('/{id}/image/delete',[ProductController::class,'deleteAllImage'])->name('cts.product.image.deleteAllImage');
         Route::get('/{id_product}/image/create',[ProductController::class,'imageCreate'])->name('cts.product.image.create');
         Route::post('/image/store',[ProductController::class,'imageStore'])->name('cts.product.image.store');
     }); 
+
+    Route::prefix("order")->group(function(){
+        Route::get("/list",[OrderController::class,"index"])->name("order.list");
+        Route::get('/create',[OrderController::class,'create'])->name('order.create');
+        Route::post('/store',[OrderController::class,'store'])->name('order.store');
+        Route::get('/{id}/edit',[OrderController::class,'edit'])->name('order.edit');
+        Route::post('/{id}/update',[OrderController::class,'update'])->name('order.update');
+        Route::get('/{id}/delete',[OrderController::class,'delete'])->name('order.delete');
+        Route::get('/{id}/view',[OrderController::class,'view'])->name('order.view');
+        Route::get('/search',[OrderController::class,'search'])->name('order.search');
+
+        Route::get('/{id}/set_status',[OrderController::class,'setStatusOrder'])->name('order.setStatusOrder');
+
+    });
     
 });
