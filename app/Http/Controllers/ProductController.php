@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function list()
     {
-        return view('cts.products.list',with(['products' => $this->products->paginate(10)]));
+        return view('cts.products.list',with(['products' => $this->products->where('active',Product::PRODUCT_ACTIVE)->orderByDesc('updated_at')->paginate(10)]));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class ProductController extends Controller
     {
         // dd("controller");
         $this->productRepository->createProduct($request);
-        Session::flash('success', 'create success');
+        Session::flash('success', 'Tạo Thành Công');
         return redirect()->route('cts.product.list');
     }
 
@@ -56,14 +56,14 @@ class ProductController extends Controller
     public function update(ProductRequest $request,$id)
     {
         $this->productRepository->updateProduct($request,$id);
-        Session::flash('success', 'update success');
+        Session::flash('success', 'Cập Nhật Thành Công');
         return redirect()->route('cts.product.list');
     }
 
     public function delete($id)
     {
         $this->productRepository->deleteProduct($id);
-        Session::flash('success', 'delete success');
+        Session::flash('success', 'Xóa Thành Công');
         return redirect()->route('cts.product.list');
     }
 
@@ -80,7 +80,6 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $result = $this->productRepository->search($request);
-        // dd($result['product']->paginate(5));
         return view('cts.products.list',with(['products' => $result['product'],'search' => $result['key']]));
     }
 
@@ -92,7 +91,7 @@ class ProductController extends Controller
     public function imageUpdate(Request $request)
     {
         $this->productRepository->upImage($request);
-        Session::flash('success', 'update success');
+        Session::flash('success', 'Cập Nhật Thành Công');
         return redirect()->back();
     }
     public function imageDelete(Request $request)
@@ -100,8 +99,13 @@ class ProductController extends Controller
         // dd($request);
         // dd()
         $this->productRepository->imageDelete($request);
-        Session::flash('success', 'delete success');
+        Session::flash('success', 'Xóa Thành công');
         return redirect()->route('cts.product.image',$request->product_id);
+    }
+
+    public function productDoneView()
+    {
+        return view('cts.products.formproductDone',with(['products' => $this->products->where('active',Product::PRODUCT_UNACTIVE)->orderByDesc('updated_at')->paginate(10)]));
     }
 
     public function deleteMutilImage($id){
@@ -119,7 +123,7 @@ class ProductController extends Controller
     public function imageStore(Request $request)
     {
         $this->productRepository->imageStore($request);
-        Session::flash('success', 'create success');
+        Session::flash('success', 'Tạo Thành Công');
         return redirect()->route('cts.product.image',$request['id_product']);
     }
     public function deleteAllImage($id){

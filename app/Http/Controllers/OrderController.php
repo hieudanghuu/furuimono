@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Repositories\Order\OrderRepository;
 use App\Http\Requests\OrderRequest;
+use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -18,6 +19,7 @@ class OrderController extends Controller
     protected $orderRepository;
     protected $products;
     protected $users;
+    protected $order_products;
     
     function __construct( OrderRepository $orderRepository)
     {
@@ -25,6 +27,7 @@ class OrderController extends Controller
         $this->orders = new Order();
         $this->products = new Product();
         $this->users = new User();
+        $this->order_products = new OrderProduct();
     }
     /**
      * Display a listing of the resource.
@@ -33,13 +36,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view("cts.orders.list")->with(["orders" => $this->orders->paginate(10)]);
+        
+        return view("cts.orders.list")->with(["orders" => $this->orders->where('status',Order::ORDER_ACTIVE)->orderByDesc('updated_at')->paginate(10)]);
     }
 
     public function setStatusOrder($id)
     {
-        $this->orders->setStatus($id);
+        $this->orderRepository->setStatus($id);
         return redirect()->back();
+    }
+
+    public function orderDoneView()
+    {
+        return view("cts.orders.formOrderDone")->with(["orders" => $this->orders->where('status',Order::ORDER_UNACTIVE)->orderByDesc('updated_at')->paginate(10)]);
     }
 
     /**
@@ -65,7 +74,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $this->orderRepository->store($request);
-        Session::flash('success', 'create success');
+        Session::flash('success', 'Tạo Thành Công');
         return redirect()->route('order.list');
     }
 
@@ -86,9 +95,15 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
-        //
+        $product_id = $this->orders->findOrFail($id)->product_id;
+        return view("cts.orders.edit")->with([
+            "products" => $this->products->where('active',Product::PRODUCT_ACTIVE)->get(),
+            'product' => $this->products->findOrFail($product_id),
+            'users' => $this->users->all(),
+            'order' => $this->orders->findOrFail($id)
+        ]);
     }
 
     /**
@@ -98,9 +113,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(OrderRequest $request)
     {
-        //
+        $this->orderRepository->update($request);
+        Session::flash('success', 'cập Nhật Thành Công');
+        return redirect()->route('order.list');
     }
 
     /**
@@ -109,8 +126,22 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function delete($id)
     {
-        //
+        $this->orderRepository->deleteOrder($id);
+        return redirect()->back();
+    }
+
+    public function deleteProduct(Request $request){
+        $this->orderRepository->delete($request);
+
+        Session::flash('success', 'Xóa Thành Công');
+        return redirect()->route('order.list');
+    }
+
+    public function search(Request $request)
+    {
+        $result = $this->orderRepository->search($request);
+        return view('cts.orders.list',with(['orders' => $result['orders'],'search' => $result['key']]));
     }
 }

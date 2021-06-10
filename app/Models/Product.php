@@ -18,14 +18,17 @@ class Product extends Model
     const SOLD = 0;
     const NOT_SOLD = 1;
 
-    public function product(){
+    public function order(){
         return $this->belongsToMany(Order::class,"order_products","product_id","order_id");
     }
     public function user(){
-        return $this->belongsTo('App\Models\user');
+        return $this->belongsTo('App\Models\User');
     }
     public function picture(){
         return $this->hasMany('App\Models\Picture');
+    }
+    public function orderProduct(){
+        return $this->hasMany('App\Models\OrderProduct');
     }
 }
 

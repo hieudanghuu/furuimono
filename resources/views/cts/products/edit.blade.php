@@ -18,29 +18,6 @@
 <div class="container" style="width:100% ;margin-top: 100px;">
     <form action="{{ route('cts.product.update',$product['id']) }}" method="post" enctype="multipart/form-data" >
         @csrf
-        {{-- <div>
-            {{dd($product['image'])}}
-            <label for="">Ảnh Sản Phẩm</label><br> 
-            <label for="image">
-                @if (isset($product['image']))
-                <img id="img"  src="{{asset('/storage/'.$product['image'])}}" style="width:200px" alt="No Vailable">
-                @endif
-            </label><br>
-            <label for="image" class="btn btn-default btn-sm">Change Image</label>
-            <span id="text_image"></span>
-            <input accept=".jpg, .jpeg, .png" type="file" style="visibility:hidden;" class="form-control" id="image" onchange="change(this.value)" name="image">
-        </div> --}}
-        {{-- <div class="row">
-            @foreach ($product->picture as $key => $item)
-            <div class="col-2">
-                <label for="image{{$key}}">
-                    <img class="img_custom" id="{{$key}}" src="{{asset('/storage/'.$item['image'])}}" width="100%" alt="product_image">
-                </label>
-                <input accept=".jpg, .jpeg, .png" type="file" style="visibility:hidden;" class="form-control" id="image{{$key}}" value="{{$item['image']}}" onchange="change(this.value)" name="images[]">
-                <a href="#" id="close{{$key}}" onclick="close_img({{$key}})" class="btn btn-default btn-close-img">X</a>
-            </div>
-            @endforeach
-        </div> --}}
         <div class="form-group col-12">
             <div class="input-group">
                 <div class="custom-file">
@@ -63,29 +40,29 @@
         </div>
         <div>
             <label for="">Tên Sản Phẩm</label>
-            <input type="text" class="form-control" value="{{ $product['name'] }}" name="name">
+            <input type="text" class="form-control" value="{{ $product['name'] }}" name="name" required>
             @error('name')
                 <div class=" text-danger">{{ $message }}</div>
             @enderror
             </div>
         <div>
             <label for="">Giá</label>
-            <input type="text" class="form-control" value="{{ $product['price'] }}" name="price">
+            <input type="number" class="form-control" value="{{ $product['price'] }}" name="price" required>
             @error('price')
             <div class=" text-danger">{{ $message }}</div>
             @enderror
         </div>
         <div>
             <label for="">Mô Tả </label>
-            <input type="text" class="form-control" value="{{ $product['discription'] }}" name="discription">
-            @error('quanty')
+            <input type="text" class="form-control" value="{{ $product['discription'] }}" name="discription" required>
+            @error('discription')
             <div class=" text-danger">{{ $message }}</div>
             @enderror
         </div>
         <div>
             <label for="">Tình Trạng (%)</label>
-            <input type="text" class="form-control" value="{{ $product['status'] }}" name="status">
-            @error('quanty')
+            <input type="text" class="form-control" value="{{ $product['status'] }}" name="status" required>
+            @error('status')
             <div class=" text-danger">{{ $message }}</div>
             @enderror
         </div>

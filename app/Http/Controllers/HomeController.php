@@ -23,6 +23,8 @@ class HomeController extends Controller
         $sumUser = $this->users->count();
         $sumProduct = $this->products->where('active',1)->count();
         $sumOrder = $this->orders->count();
-        return view("cts.home",compact('sumUser','sumProduct','sumOrder'));
+        $total = $this->orders->where('status',Order::ORDER_UNACTIVE)->sum('total');
+    
+        return view("cts.home",compact('sumUser','sumProduct','sumOrder','total'));
     }
 }

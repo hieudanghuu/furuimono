@@ -22,23 +22,11 @@
 <div class="container row" style="width:100% ;margin-top: 100px;">
     <div class="col-3">
         <div class="text-center">
-            {{-- {{dd($product['image'])}} --}}
             <label for="image text-center custom-image-product">
                 @if (isset($product['image']))
                     <img id="img"  src="{{$product['image']}}" alt="No Vailable">
                 @endif
             </label><br>  
-            {{-- {{dd($product->picture)}} --}}
-            {{-- @if (count($product->picture)>0)
-            <div class="d-flex justify-content-center">
-                @foreach ($product->picture as $key => $item)
-                    <label >
-                        <img class="img_custom" id="img{{$item['id']}}" src="{{$item['image']}}" width="100px" alt="product_image">
-                        <label for="" id="text_image{{$item['id']}}"></label>
-                    </label>
-                @endforeach
-            </div>
-            @endif       --}}
         </div>
     </div>
     <div class="col-9">

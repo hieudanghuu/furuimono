@@ -44,7 +44,7 @@
                   <i class="fas fa-yen-sign"></i>
                 </div>
                 <p class="card-category">Thu Nhập</p>
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">{{$total}}</h3>
               </div>
               <div class="card-footer">
            

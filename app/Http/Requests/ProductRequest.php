@@ -30,4 +30,14 @@ class ProductRequest extends FormRequest
             'status' => 'required|numeric|min:10|max:100',
         ];
     }
+
+    public function messages()
+    {
+        return [
+      
+            'status.min' => 'sai định dạng (10 - 100)',
+            'status.max' => "sai định dạng (10 - 100)",
+            'name.required' => 'không để trống',
+        ];
+    }
 }

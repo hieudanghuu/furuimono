@@ -28,7 +28,7 @@
         </form>
     </div>
     <div>
-        <a href="{{route('order.orderDone')}}" class="btn btn-primary btn-sm">Đơn Hàng Hoàn Thành</a>
+        <a href="{{route('order.list')}}" class="btn btn-primary btn-sm">Đơn Hàng</a>
     </div>
     <div class="card">
         <div class="card-header card-header-warning">

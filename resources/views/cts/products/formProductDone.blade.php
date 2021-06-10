@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-between">
         <div class="h-100">
             <a href="{{route('cts.product.create')}}" class="btn btn-round btn-fill btn-info">Tạo Sản Phẩm</a>
-            <a href="{{route('cts.productDone')}}" class="btn btn-primary btn-round">Sản Phẩm Vào Đơn</a>
+            <a href="{{route('cts.product.list')}}" class="btn btn-primary btn-round">Sản Phẩm Đã Bán</a>
         </div>
         
         <form class="navbar-form " action="{{route('cts.product.search')}}">
@@ -30,9 +30,9 @@
                 <thead class="text-warning">
                     <th>STT</th>
                     <th>Sản Phẩm</th>
+                    <th>Người Tạo</th>
                     <th>Tình Trạng</th>
                     <th>Giá</th>
-                    <th></th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -50,6 +50,8 @@
                                         <span>{{ $item['name']}}</span>
                                     </div>
                                 </td>
+                                <td>{{$item->user['name']}}</td>
+                               
                                 <td>{{$item['status']}} %</td>
                                 <td>{{$item['price']}}</td>
                                 <td>

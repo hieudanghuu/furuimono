@@ -53,6 +53,8 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () 
         Route::get('/{id}/image/delete',[ProductController::class,'deleteAllImage'])->name('cts.product.image.deleteAllImage');
         Route::get('/{id_product}/image/create',[ProductController::class,'imageCreate'])->name('cts.product.image.create');
         Route::post('/image/store',[ProductController::class,'imageStore'])->name('cts.product.image.store');
+
+        Route::get('/done_product',[ProductController::class,'productDoneView'])->name('cts.productDone');
     }); 
 
     Route::prefix("order")->group(function(){
@@ -60,12 +62,15 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () 
         Route::get('/{id}/create',[OrderController::class,'create'])->name('order.create');
         Route::post('/store',[OrderController::class,'store'])->name('order.store');
         Route::get('/{id}/edit',[OrderController::class,'edit'])->name('order.edit');
-        Route::post('/{id}/update',[OrderController::class,'update'])->name('order.update');
+        Route::post('/update',[OrderController::class,'update'])->name('order.update');
         Route::get('/{id}/delete',[OrderController::class,'delete'])->name('order.delete');
         Route::get('/{id}/view',[OrderController::class,'view'])->name('order.view');
         Route::get('/search',[OrderController::class,'search'])->name('order.search');
 
+
         Route::get('/{id}/set_status',[OrderController::class,'setStatusOrder'])->name('order.setStatusOrder');
+        Route::post('/delete_product',[OrderController::class,"deleteProduct"])->name('order.delete_product');
+        Route::get('/done_order',[OrderController::class,'orderDoneView'])->name('order.orderDone');
 
     });
     
