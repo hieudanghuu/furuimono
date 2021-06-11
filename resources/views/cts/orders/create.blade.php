@@ -86,7 +86,7 @@
             <label for="">Người Tạo</label><br>
             <select class="form-control" name="user_id" >
                 @foreach ($users as $item)
-                <option value="{{ $item['id']}}" {{$product->user['name'] == $item['id']?'selected':''}}>{{ $product->user['name']}}</option>
+                <option value="{{ $item['id']}}" {{$product->user['name'] == $item['id']?'selected':''}}>{{ $item['name']}}</option>
                 @endforeach
             </select>
         </div>
