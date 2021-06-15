@@ -33,10 +33,10 @@
                 <div class=" text-danger">{{ $message }}</div>
             @enderror
             </div>
-        <div>
+        {{-- <div>
             <label for="">Email</label>
             <p  class="form-control" >{{ $user['email'] }}</p>
-        </div>
+        </div> --}}
         <button class="btn btn-primary">Submit</button>
     </form>
 </div>

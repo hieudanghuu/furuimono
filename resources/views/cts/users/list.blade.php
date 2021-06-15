@@ -58,8 +58,15 @@
                             <td>{{ $item['email']}}</td>
                             <td> <i class="fas fa-yen-sign"></i> {{ $item->order->where('status',App\Models\Order::ORDER_UNACTIVE)->sum('total')}}</td>
                             <td>
-                            <a href="{{route('cts.user.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" class="mr-2"><i class="far fa-trash-alt "></i></a>
+                              @if (Auth::user()->email == 'admin@gmail.com')
+                              <a href="{{route('cts.user.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" class="mr-2"><i class="far fa-trash-alt "></i></a>
+                              <a href="{{ route('cts.user.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
+                              @else
+                                @if($item['name'] == Auth::user()->name)
+                                <a href="{{route('cts.user.delete',$item['id'])}}"  onclick="return confirm('có muốn xóa không? hỏi thiệt (^.^)')" class="mr-2"><i class="far fa-trash-alt "></i></a>
                                 <a href="{{ route('cts.user.edit', $item['id']) }}" class="mr-2"><i class="far fa-edit"></i></a>
+                                @endif
+                              @endif
                             </td>
                         </tr>
                     @endforeach
