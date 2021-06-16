@@ -13,10 +13,10 @@ class Product extends Model
     protected $fillable = ['name','price','active','user_id','discription','image','status'];
 
 
-    const PRODUCT_ACTIVE = 1;
-    const PRODUCT_UNACTIVE = 0;
-    const SOLD = 0;
-    const NOT_SOLD = 1;
+    const PRODUCT_ACTIVE = 1; // sản phẩm đã bán
+    const PRODUCT_UNACTIVE = 0; // sản phẩm chưa bán
+    const SOLD = 0; 
+    const NOT_SOLD = 1; 
 
     public function order(){
         return $this->belongsToMany(Order::class,"order_products","product_id","order_id");

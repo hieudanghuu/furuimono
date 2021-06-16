@@ -21,10 +21,15 @@ class HomeController extends Controller
     public function index()
     {
         $sumUser = $this->users->count();
-        $sumProduct = $this->products->where('active',1)->count();
+        $sumProduct = $this->products->where('active',Product::PRODUCT_ACTIVE)->count();
         $sumOrder = $this->orders->count();
         $total = $this->orders->where('status',Order::ORDER_UNACTIVE)->sum('total');
+
+        $products = $this->products->all()->count();
+        $doneProduct = $this->products->where('active',Product::PRODUCT_UNACTIVE)->count();
+        $order = $this->orders->where('status',Order::ORDER_ACTIVE)->count();
+        $doneOrder = $this->orders->where('status',Order::ORDER_UNACTIVE)->count();
     
-        return view("cts.home",compact('sumUser','sumProduct','sumOrder','total'));
+        return view("cts.home",compact('sumUser','sumProduct','sumOrder','total','products','doneProduct','order','doneOrder'));
     }
 }

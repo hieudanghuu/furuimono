@@ -79,14 +79,14 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("")->group( function () 
     
 });
 
-Route::get('send-mail', function () {
+// Route::get('send-mail', function () {
    
-    $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp'
-    ];
+//     $details = [
+//         'title' => 'Mail from ItSolutionStuff.com',
+//         'body' => 'This is for testing email using smtp'
+//     ];
    
-    Mail::to('email@gmail.com')->send(new \App\Mail\MyTestMail($details));
+//     Mail::to('hieudanghuu08091989@gmail.com')->send(new \App\Mail\MyTestMail($details));
    
-    dd("Email is Sent.");
-});
+//     dd("Email is Sent.");
+// });
